@@ -1,0 +1,41 @@
+<project>
+
+    <target name="compile">
+        <mkdir dir="../build/classes"/>
+        <javac srcdir="." destdir="../build/classes">
+        <classpath>
+            <pathelement path="./libs/junit-4.10.jar"/>
+        </classpath>
+        </javac>
+    </target>
+
+    <target name="run">
+      <java classname = "app.RectApp">
+        <classpath>
+            <pathelement path="../build/classes"/>
+        </classpath>
+      </java>
+    </target>
+
+    <target name="buildjar">
+    <jar destfile="app.jar">
+      <fileset dir="../build/classes"/>
+      <manifest>
+        <attribute name="Main-Class" value="app.RectApp"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="unit-test" depends="compile">
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement path="../build/classes"/>
+        <pathelement path="./libs/junit-4.10.jar"/>
+      </classpath>
+      <test name="app.RectangleTest"
+        haltonfailure="no" outfile="result">
+        <formatter type="plain" />
+      </test>
+    </junit>
+  </target>
+</project>
